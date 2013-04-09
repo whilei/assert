@@ -68,6 +68,14 @@ func NotEqual(t *testing.T, exp, got interface{}, args ...interface{}) {
 	assert(t, result, fn, 1)
 }
 
+func Nil(t *testing.T, got interface{}, args ...interface{}) {
+	Equal(t, nil, got, args...)
+}
+
+func NotNil(t *testing.T, got interface{}, args ...interface{}) {
+	NotEqual(t, nil, got, args...)
+}
+
 func Panic(t *testing.T, err interface{}, fn func()) {
 	defer func() {
 		equal(t, err, recover(), 3)

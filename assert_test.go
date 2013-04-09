@@ -13,3 +13,13 @@ func TestNotEqual(t *testing.T) {
 	NotEqual(t, "foo", "bar", "msg!")
 	//NotEqual(t, "foo", "foo", "this should blow up")
 }
+
+func TestNil(t *testing.T) {
+	Nil(t, nil, "msg!")
+	//Nil(t, "foo", "this should blow up")
+}
+
+func TestNotNil(t *testing.T) {
+	NotNil(t, "foo", "msg!")
+	//NotNil(t, nil, "this should blow up")
+}
