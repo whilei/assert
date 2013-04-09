@@ -69,11 +69,18 @@ func NotEqual(t *testing.T, exp, got interface{}, args ...interface{}) {
 }
 
 func Nil(t *testing.T, got interface{}, args ...interface{}) {
-	Equal(t, nil, got, args...)
+	equal(t, nil, got, 1, args...)
 }
 
 func NotNil(t *testing.T, got interface{}, args ...interface{}) {
-	NotEqual(t, nil, got, args...)
+	fn := func() {
+		t.Error("!  Unexpected: <nil>")
+		if len(args) > 0 {
+			t.Error("!", " -", fmt.Sprint(args...))
+		}
+	}
+	result := got != nil
+	assert(t, result, fn, 1)
 }
 
 func Panic(t *testing.T, err interface{}, fn func()) {
