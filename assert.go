@@ -50,6 +50,14 @@ func NotEqual(t *testing.T, exp, got interface{}, args ...interface{}) {
 	assert(t, result, fn, 1)
 }
 
+func True(t *testing.T, got interface{}, args ...interface{}) {
+	equal(t, true, got, 1, args...)
+}
+
+func False(t *testing.T, got interface{}, args ...interface{}) {
+	equal(t, false, got, 1, args...)
+}
+
 func Nil(t *testing.T, got interface{}, args ...interface{}) {
 	equal(t, nil, got, 1, args...)
 }
