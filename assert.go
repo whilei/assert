@@ -31,24 +31,6 @@ func equal(t *testing.T, exp, got interface{}, cd int, args ...interface{}) {
 	assert(t, result, fn, cd+1)
 }
 
-func tt(t *testing.T, result bool, cd int, args ...interface{}) {
-	fn := func() {
-		t.Errorf("!  Failure")
-		if len(args) > 0 {
-			t.Error("!", " -", fmt.Sprint(args...))
-		}
-	}
-	assert(t, result, fn, cd+1)
-}
-
-func T(t *testing.T, result bool, args ...interface{}) {
-	tt(t, result, 1, args...)
-}
-
-func Tf(t *testing.T, result bool, format string, args ...interface{}) {
-	tt(t, result, 1, fmt.Sprintf(format, args...))
-}
-
 func Equal(t *testing.T, exp, got interface{}, args ...interface{}) {
 	equal(t, exp, got, 1, args...)
 }
