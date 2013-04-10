@@ -8,6 +8,8 @@ import (
 	"testing"
 )
 
+var errorPrefix = "\U0001F4A9 "
+
 // -- Assertion handlers
 
 func assert(t *testing.T, success bool, f func(), callDepth int) {
@@ -22,10 +24,10 @@ func assert(t *testing.T, success bool, f func(), callDepth int) {
 func equal(t *testing.T, expected, got interface{}, callDepth int, args ...interface{}) {
 	fn := func() {
 		for _, desc := range pretty.Diff(expected, got) {
-			t.Error(desc)
+			t.Error(errorPrefix, desc)
 		}
 		if len(args) > 0 {
-			t.Error("-", fmt.Sprint(args...))
+			t.Error(errorPrefix, "-", fmt.Sprint(args...))
 		}
 	}
 	assert(t, isEqual(expected, got), fn, callDepth+1)
@@ -33,9 +35,9 @@ func equal(t *testing.T, expected, got interface{}, callDepth int, args ...inter
 
 func notEqual(t *testing.T, expected, got interface{}, callDepth int, args ...interface{}) {
 	fn := func() {
-		t.Errorf("Unexpected: %#v", got)
+		t.Errorf("%s Unexpected: %#v", errorPrefix, got)
 		if len(args) > 0 {
-			t.Error("-", fmt.Sprint(args...))
+			t.Error(errorPrefix, "-", fmt.Sprint(args...))
 		}
 	}
 	assert(t, !isEqual(expected, got), fn, callDepth+1)
