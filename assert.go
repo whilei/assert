@@ -21,23 +21,23 @@ func assert(t *testing.T, success bool, f func(), callDepth int) {
 	}
 }
 
-func equal(t *testing.T, expected, got interface{}, callDepth int, args ...interface{}) {
+func equal(t *testing.T, expected, got interface{}, callDepth int, messages ...interface{}) {
 	fn := func() {
 		for _, desc := range pretty.Diff(expected, got) {
 			t.Error(errorPrefix, desc)
 		}
-		if len(args) > 0 {
-			t.Error(errorPrefix, "-", fmt.Sprint(args...))
+		if len(messages) > 0 {
+			t.Error(errorPrefix, "-", fmt.Sprint(messages...))
 		}
 	}
 	assert(t, isEqual(expected, got), fn, callDepth+1)
 }
 
-func notEqual(t *testing.T, expected, got interface{}, callDepth int, args ...interface{}) {
+func notEqual(t *testing.T, expected, got interface{}, callDepth int, messages ...interface{}) {
 	fn := func() {
 		t.Errorf("%s Unexpected: %#v", errorPrefix, got)
-		if len(args) > 0 {
-			t.Error(errorPrefix, "-", fmt.Sprint(args...))
+		if len(messages) > 0 {
+			t.Error(errorPrefix, "-", fmt.Sprint(messages...))
 		}
 	}
 	assert(t, !isEqual(expected, got), fn, callDepth+1)
@@ -68,26 +68,26 @@ func isNil(got interface{}) bool {
 
 // -- Public API
 
-func Equal(t *testing.T, expected, got interface{}, args ...interface{}) {
-	equal(t, expected, got, 1, args...)
+func Equal(t *testing.T, expected, got interface{}, messages ...interface{}) {
+	equal(t, expected, got, 1, messages...)
 }
 
-func NotEqual(t *testing.T, expected, got interface{}, args ...interface{}) {
-	notEqual(t, expected, got, 1, args...)
+func NotEqual(t *testing.T, expected, got interface{}, messages ...interface{}) {
+	notEqual(t, expected, got, 1, messages...)
 }
 
-func True(t *testing.T, got interface{}, args ...interface{}) {
-	equal(t, true, got, 1, args...)
+func True(t *testing.T, got interface{}, messages ...interface{}) {
+	equal(t, true, got, 1, messages...)
 }
 
-func False(t *testing.T, got interface{}, args ...interface{}) {
-	equal(t, false, got, 1, args...)
+func False(t *testing.T, got interface{}, messages ...interface{}) {
+	equal(t, false, got, 1, messages...)
 }
 
-func Nil(t *testing.T, got interface{}, args ...interface{}) {
-	equal(t, nil, got, 1, args...)
+func Nil(t *testing.T, got interface{}, messages ...interface{}) {
+	equal(t, nil, got, 1, messages...)
 }
 
-func NotNil(t *testing.T, got interface{}, args ...interface{}) {
-	notEqual(t, nil, got, 1, args...)
+func NotNil(t *testing.T, got interface{}, messages ...interface{}) {
+	notEqual(t, nil, got, 1, messages...)
 }

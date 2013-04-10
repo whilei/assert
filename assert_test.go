@@ -28,7 +28,15 @@ func TestNotEqual(t *testing.T) {
 	NotEqual(t, myStructA, myStructB)
 	NotEqual(t, &myStructA, myStructA)
 
-	// NotEqual(t, "foo", "foo", "this should blow up")
+	NotEqual(t, "foo", "foo", "this should blow up")
+}
+
+func TestTrue(t *testing.T) {
+	True(t, true)
+}
+
+func TestFalse(t *testing.T) {
+	False(t, false)
 }
 
 func TestNil(t *testing.T) {
