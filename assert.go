@@ -5,6 +5,7 @@ import (
 	"github.com/kr/pretty"
 	"reflect"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -41,6 +42,28 @@ func notEqual(t *testing.T, expected, got interface{}, callDepth int, messages .
 		}
 	}
 	assert(t, !isEqual(expected, got), fn, callDepth+1)
+}
+
+func contains(t *testing.T, expected, got string, callDepth int, messages ...interface{}) {
+	fn := func() {
+		t.Errorf("%s Expected to find: %#v", errorPrefix, expected)
+		t.Errorf("%s in: %#v", errorPrefix, got)
+		if len(messages) > 0 {
+			t.Error(errorPrefix, "-", fmt.Sprint(messages...))
+		}
+	}
+	assert(t, strings.Contains(got, expected), fn, callDepth+1)
+}
+
+func notContains(t *testing.T, unexpected, got string, callDepth int, messages ...interface{}) {
+	fn := func() {
+		t.Errorf("%s Expected not to find: %#v", errorPrefix, unexpected)
+		t.Errorf("%s in: %#v", errorPrefix, got)
+		if len(messages) > 0 {
+			t.Error(errorPrefix, "-", fmt.Sprint(messages...))
+		}
+	}
+	assert(t, !strings.Contains(got, unexpected), fn, callDepth+1)
 }
 
 // -- Matching
@@ -90,4 +113,12 @@ func Nil(t *testing.T, got interface{}, messages ...interface{}) {
 
 func NotNil(t *testing.T, got interface{}, messages ...interface{}) {
 	notEqual(t, nil, got, 1, messages...)
+}
+
+func Contains(t *testing.T, expected, got string, messages ...interface{}) {
+	contains(t, expected, got, 1, messages...)
+}
+
+func NotContains(t *testing.T, unexpected, got string, messages ...interface{}) {
+	notContains(t, unexpected, got, 1, messages...)
 }

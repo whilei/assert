@@ -28,7 +28,7 @@ func TestNotEqual(t *testing.T) {
 	NotEqual(t, myStructA, myStructB)
 	NotEqual(t, &myStructA, myStructA)
 
-	NotEqual(t, "foo", "foo", "this should blow up")
+	// NotEqual(t, "foo", "foo", "this should blow up")
 }
 
 func TestTrue(t *testing.T) {
@@ -73,4 +73,18 @@ func TestNotNil(t *testing.T) {
 	// NotNil(t, nil, "this should blow up")
 	// var myNilStruct MyStruct
 	// NotNil(t, myNilStruct, "this should blow up")
+}
+
+func TestContains(t *testing.T) {
+	Contains(t, "foo", "bizmarfooba")
+	Contains(t, "", "bizmarfooba")
+
+	// Contains(t, "cool", "", "This should blow up")
+}
+
+func TestNotContains(t *testing.T) {
+	NotContains(t, "a", "")
+	NotContains(t, "Lorem", "lorem")
+
+	// NotContains(t, "c", "abc", "This should blow up")
 }
