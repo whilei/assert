@@ -13,6 +13,18 @@ Installation
 
     $ go get github.com/stvp/assert
 
+API
+---
+
+    func Equal(t *testing.T, expected, got interface{}, messages ...interface{})
+    func NotEqual(t *testing.T, expected, got interface{}, messages ...interface{})
+    func True(t *testing.T, got interface{}, messages ...interface{})
+    func False(t *testing.T, got interface{}, messages ...interface{})
+    func Nil(t *testing.T, got interface{}, messages ...interface{})
+    func NotNil(t *testing.T, got interface{}, messages ...interface{})
+    func Contains(t *testing.T, expected string, got string, messages ...interface{})
+    func NotContains(t *testing.T, unexpected string, got string, messages ...interface{})
+
 Example
 -------
 
