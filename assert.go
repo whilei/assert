@@ -122,3 +122,10 @@ func Contains(t *testing.T, expected, got string, messages ...interface{}) {
 func NotContains(t *testing.T, unexpected, got string, messages ...interface{}) {
     notContains(t, unexpected, got, 1, messages...)
 }
+
+func Panic(t *testing.T, err interface{}, fn func(), messages ...interface{}) {
+    defer func() {
+        equal(t, err, recover(), 3, messages...)
+    }()
+    fn()
+}
