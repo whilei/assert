@@ -71,9 +71,8 @@ func notContains(t *testing.T, unexpected, got string, callDepth int, messages .
 func isEqual(expected, got interface{}) bool {
     if expected == nil {
         return isNil(got)
-    } else {
-        return reflect.DeepEqual(expected, got)
     }
+    return reflect.DeepEqual(expected, got)
 }
 
 func isNil(got interface{}) bool {
@@ -84,9 +83,8 @@ func isNil(got interface{}) bool {
     switch value.Kind() {
     case reflect.Chan, reflect.Func, reflect.Interface, reflect.Map, reflect.Ptr, reflect.Slice:
         return value.IsNil()
-    default:
-        return false
     }
+    return false
 }
 
 // -- Public API
